@@ -48,7 +48,6 @@ describe('Mongoose', () => {
   let UserModel
   let userCollection
   let alice
-  let nestedBob
 
   beforeAll(async () => {
     const userSchema = new Schema({ name: 'string' })
@@ -62,10 +61,10 @@ describe('Mongoose', () => {
       { upsert: true, new: true }
     )
 
-    nestedBob = await userCollection.findOneAndReplace(
+    await userCollection.findOneAndReplace(
       { name: 'Bob' },
       { name: 'Bob', nested: { _id: objectID, field1: 'value1', field2: '' } },
-      { new: true, upsert: true }
+      { upsert: true }
     )
   })
 
